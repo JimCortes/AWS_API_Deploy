@@ -72,6 +72,7 @@ resource "aws_route" "public_internet_gateway" {
 resource "aws_route_table_association" "public" {
   count          = length(var.public_subnets_cidr)
   subnet_id      = element(var.public_subnets_cidr.*.id, count.index)
+  route_table_id         = aws_route_table.public.id
 }
 
 resource "aws_security_group" "default" {
