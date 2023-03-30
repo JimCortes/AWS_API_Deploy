@@ -75,8 +75,8 @@ resource "aws_route_table_association" "private" {
 resource "aws_security_group" "default" {
   name        = "default-sg"
   description = "Default security group to allow inbound/outbound from the VPC"
-  vpc_id      = aws_vpc.vpc.id
-  depends_on  = [aws_vpc.vpc]
+  vpc_id      = aws_vpc.vpc_api.id
+  depends_on  = [aws_vpc.vpc_api]
   ingress {
     from_port = 80
     to_port   = 80
