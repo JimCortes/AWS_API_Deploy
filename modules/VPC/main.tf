@@ -34,7 +34,7 @@ resource "aws_subnet" "public_subnet" {
   availability_zone       = element(var.availability_zone, count.index)
   map_public_ip_on_launch = true
   tags = {
-    Name        = "public-subnet"
+    Name        = "public-subnet-${count.index}"
   }
 }
 
@@ -48,6 +48,19 @@ resource "aws_subnet" "private_subnet" {
   }
 }
 
+resource "aws_route_table" "private" {
+  vpc_id = aws_vpc.vpc.id
+  tags = {
+    Name        = "private-route-table"
+  }
+}
+
+resource "aws_route_table" "public" {
+  vpc_id = aws_vpc.vpc.id
+  tags = {
+    Name        = "public-route-table"
+  }
+}
 
 resource "aws_route" "public_internet_gateway" {
   route_table_id         = aws_route_table.public.id
