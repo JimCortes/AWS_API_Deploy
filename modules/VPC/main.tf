@@ -68,12 +68,7 @@ resource "aws_route" "public_internet_gateway" {
   gateway_id             = aws_internet_gateway.igw.id
 }
 
-resource "aws_route" "private_nat_gateway" {
-  count                  = length(aws_subnet.private_subnet)
-  route_table_id         = aws_route_table.private[count.index].id
-  destination_cidr_block = "0.0.0.0/0"
-  nat_gateway_id         = aws_nat_gateway.nat.id
-}
+
 
 resource "aws_route_table_association" "public" {
   count          = length(aws_subnet.public_subnet)
@@ -81,11 +76,7 @@ resource "aws_route_table_association" "public" {
   route_table_id = aws_route_table.public[count.index].id
 }
 
-resource "aws_route_table_association" "private" {
-  count          = length(aws_subnet.private_subnet)
-  subnet_id      = aws_subnet.private_subnet[count.index].id
-  route_table_id = aws_route_table.private[count.index].id
-}
+
 
 resource "aws_security_group" "default" {
   name        = "default-sg"
