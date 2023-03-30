@@ -6,6 +6,27 @@ resource "aws_vpc" "vpc_api" {
   }
 }
 
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.vpc.id
+  tags = {
+    Name = "igw"
+  }
+}
+
+resource "aws_eip" "nat_eip" {
+  vpc        = true
+  depends_on = [aws_internet_gateway.igw]
+}
+
+resource "aws_nat_gateway" "nat" {
+  allocation_id = aws_eip.nat_eip.id
+  subnet_id     = aws_subnet.public_subnet.id
+  depends_on    = [aws_internet_gateway.igw]
+  tags = {
+    Name        = "nat"
+  }
+}
+
 resource "aws_subnet" "public_subnet" {
   vpc_id                  = aws_vpc.vpc_api.id
   count                   = length(var.public_subnets_cidr)
