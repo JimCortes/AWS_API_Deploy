@@ -5,3 +5,4 @@ module "VPC" {
   public_subnets_cidr  = var.public_subnets_cidr
   private_subnets_cidr = var.private_subnets_cidr
 }
+
