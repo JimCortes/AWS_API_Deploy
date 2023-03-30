@@ -42,7 +42,7 @@ jobs:
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
             echo "Are you sure you want to destroy the infrastructure? [y/n]"
-            read answer
+            read -r answer
             echo "Answer: $answer"
 
             if [ "$answer" != "${answer#[Yy]}" ] ;then
