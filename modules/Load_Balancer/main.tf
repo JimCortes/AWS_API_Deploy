@@ -1,6 +1,6 @@
 resource "aws_elb" "ALB" {
   name            = "ALB-elb"
-  subnets         = [aws_subnet.public.*.id]
+  subnets         = var.public_subnets_cidr
   security_groups = [aws_security_group.elb.id]
 
   listener {
