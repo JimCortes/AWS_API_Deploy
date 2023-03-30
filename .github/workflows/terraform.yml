@@ -38,22 +38,10 @@ jobs:
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve tfplan
 
-      - name: Manual Approval
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: |
-            echo "Are you sure you want to destroy the infrastructure? [y/n]"
-            read -r answer
-            echo "Answer: $answer"
-
-            if [ "$answer" != "${answer#[Yy]}" ] ;then
-              echo "Proceeding with infrastructure destruction..."
-              echo "##[set-output name=destroy]yes"
-            else
-              echo "Infrastructure destruction cancelled."
-              echo "##[set-output name=destroy]no"
-            fi
+      - name: Check if infrastructure should be destroyed
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push' && secrets.DESTROY == 'true'
+        run: echo "Proceeding with infrastructure destruction..."
 
       - name: Terraform Destroy
-        if: steps.manual_approval.outputs.destroy == 'yes'
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push' && secrets.DESTROY == 'true'
         run: terraform destroy
-
