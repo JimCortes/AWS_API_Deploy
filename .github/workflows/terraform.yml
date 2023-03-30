@@ -5,7 +5,7 @@ on:
     branches:
       - main
 env:
-  DESTROY: true
+  DESTROY: Flase
 
 jobs:
   terraform:
@@ -45,6 +45,5 @@ jobs:
         if: github.ref == 'refs/heads/main' && github.event_name == 'push' && env.DESTROY == 'true'
         run: echo "Proceeding with infrastructure destruction..."
 
-      - name: Terraform Destroy
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push' && env.DESTROY == 'true'
-        run: terraform destroy -auto-approve
+
+        
