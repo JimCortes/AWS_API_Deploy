@@ -5,7 +5,7 @@ on:
     branches:
       - main
 env:
-  DESTROY: False
+  DESTROY: true
 
 jobs:
   terraform:
