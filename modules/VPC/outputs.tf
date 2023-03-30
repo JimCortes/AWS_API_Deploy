@@ -1,5 +1,5 @@
 output "vpc_id" {
-  value = aws_vpc.vpc_id.id
+  value = aws_vpc.vpc_api.id
 }
 
 output "vpc_cidr_block" {

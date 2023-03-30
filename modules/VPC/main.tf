@@ -49,14 +49,14 @@ resource "aws_subnet" "private_subnet" {
 }
 
 resource "aws_route_table" "private" {
-  vpc_id = aws_vpc.vpc.id
+  vpc_id = aws_vpc.vpc_api.id
   tags = {
     Name        = "private-route-table"
   }
 }
 
 resource "aws_route_table" "public" {
-  vpc_id = aws_vpc.vpc.id
+  vpc_id = aws_vpc.vpc_api.id
   tags = {
     Name        = "public-route-table"
   }
