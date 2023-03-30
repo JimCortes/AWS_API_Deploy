@@ -10,7 +10,7 @@ variable "vpc_cidr" {
 }
 
 variable "public_subnets_cidr" {
-  type        = string
+  type        = list(string)
   description = "IP Ranges for the Public Subnet"
 }
 
